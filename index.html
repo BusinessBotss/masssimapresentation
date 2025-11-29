@@ -3,322 +3,429 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weight Loss Journey Tracker</title>
+  <title>Ultimate Habit Tracker 2026</title>
   <script src="/_sdk/data_sdk.js"></script>
   <script src="/_sdk/element_sdk.js"></script>
   <style>
     body {
       box-sizing: border-box;
-    }
-    
-    * {
       margin: 0;
       padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+      color: #ffffff;
+      min-height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    * {
       box-sizing: border-box;
     }
 
-    html, body {
-      height: 100%;
+    .app-wrapper {
       width: 100%;
-    }
-
-    body {
-      background: #0a0e1a;
-      color: #ffffff;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      padding: 20px;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
+      min-height: 100%;
+      padding: 48px 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .header {
       text-align: center;
-      margin-bottom: 40px;
-      padding: 30px 20px;
-      background: linear-gradient(135deg, #1a1f35 0%, #0f1421 100%);
-      border-radius: 20px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      margin-bottom: 48px;
+      width: 100%;
+      max-width: 1400px;
     }
 
-    .header h1 {
-      font-size: 36px;
-      font-weight: 800;
-      margin-bottom: 8px;
-      color: #ffffff;
+    .main-title {
+      font-size: 48px;
+      font-weight: 700;
+      margin: 0 0 16px 0;
+      letter-spacing: -1px;
+      text-shadow: 0 2px 20px rgba(255, 255, 255, 0.15);
     }
 
-    .header .goal {
+    .subtitle {
       font-size: 18px;
-      color: #10b981;
-      font-weight: 600;
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 300;
+      margin: 0;
+    }
+
+    .goals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 1400px;
+      margin-bottom: 48px;
+    }
+
+    .goal-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .goal-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .goal-icon {
+      font-size: 32px;
       margin-bottom: 12px;
     }
 
-    .header .date {
+    .goal-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0 0 6px 0;
+    }
+
+    .goal-description {
       font-size: 14px;
+      color: rgba(255, 255, 255, 0.6);
+      margin: 0 0 16px 0;
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .progress-label {
+      font-size: 12px;
       color: rgba(255, 255, 255, 0.5);
     }
 
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 16px;
-      margin-bottom: 30px;
-    }
-
-    .stat-card {
-      background: #1a1f35;
-      padding: 24px;
-      border-radius: 16px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .stat-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
-    }
-
-    .stat-card .label {
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.6);
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .stat-card .value {
-      font-size: 32px;
-      font-weight: 800;
-      color: #10b981;
-    }
-
-    .section {
-      background: #1a1f35;
-      padding: 28px;
-      border-radius: 16px;
-      margin-bottom: 20px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-    }
-
-    .section h2 {
-      font-size: 22px;
+    .progress-value {
+      font-size: 20px;
       font-weight: 700;
-      margin-bottom: 20px;
-      color: #ffffff;
     }
 
-    .input-group {
-      margin-bottom: 20px;
+    .tracker-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 32px;
+      width: 100%;
+      max-width: 1400px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
 
-    .input-group label {
-      display: block;
+    .tracker-header {
+      margin-bottom: 32px;
+    }
+
+    .tracker-title {
+      font-size: 28px;
+      font-weight: 600;
+      margin: 0 0 24px 0;
+    }
+
+    .add-entry-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      align-items: end;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .form-label {
       font-size: 14px;
       color: rgba(255, 255, 255, 0.7);
-      margin-bottom: 8px;
-      font-weight: 600;
+      font-weight: 500;
     }
 
-    .input-group input {
-      width: 100%;
-      padding: 14px 16px;
-      background: #0f1421;
-      border: 2px solid #2d3548;
-      border-radius: 10px;
+    .form-input, .form-textarea {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 12px 16px;
       color: #ffffff;
       font-size: 16px;
-      transition: border-color 0.3s ease;
-    }
-
-    .input-group input:focus {
       outline: none;
-      border-color: #10b981;
-    }
-
-    .input-group textarea {
-      width: 100%;
-      padding: 14px 16px;
-      background: #0f1421;
-      border: 2px solid #2d3548;
-      border-radius: 10px;
-      color: #ffffff;
-      font-size: 16px;
-      min-height: 80px;
+      transition: all 0.3s ease;
       font-family: inherit;
-      resize: vertical;
-      transition: border-color 0.3s ease;
     }
 
-    .input-group textarea:focus {
-      outline: none;
-      border-color: #10b981;
+    .form-textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .form-input::placeholder, .form-textarea::placeholder {
+      color: rgba(255, 255, 255, 0.4);
     }
 
     .checkbox-group {
       display: flex;
       align-items: center;
-      padding: 16px;
-      background: #0f1421;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      margin-bottom: 16px;
+      gap: 8px;
+      padding: 12px 0;
     }
 
-    .checkbox-group:hover {
-      background: #151b2e;
-    }
-
-    .checkbox-group input[type="checkbox"] {
-      width: 24px;
-      height: 24px;
+    .checkbox-input {
+      width: 20px;
+      height: 20px;
       cursor: pointer;
-      accent-color: #10b981;
-      margin-right: 14px;
-    }
-
-    .checkbox-group label {
-      font-size: 17px;
-      color: #ffffff;
-      cursor: pointer;
-      user-select: none;
-      flex: 1;
+      accent-color: rgba(255, 255, 255, 0.8);
     }
 
     .btn {
-      width: 100%;
-      padding: 16px;
-      border: none;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      padding: 12px 24px;
       border-radius: 12px;
-      font-size: 17px;
-      font-weight: 700;
+      font-size: 16px;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
     }
 
     .btn:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.3);
       transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 4px 16px rgba(255, 255, 255, 0.2);
     }
 
     .btn:disabled {
-      opacity: 0.6;
+      opacity: 0.5;
       cursor: not-allowed;
-      transform: none;
     }
 
-    .btn-primary {
-      background: #10b981;
-      color: #ffffff;
+    .btn-submit {
+      grid-column: 1 / -1;
     }
 
-    .btn-secondary {
-      background: #3b82f6;
-      color: #ffffff;
+    .entries-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
 
-    .progress-bar {
-      width: 100%;
-      height: 12px;
-      background: #0f1421;
-      border-radius: 20px;
-      overflow: hidden;
+    .entry-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 24px;
+      transition: all 0.3s ease;
+    }
+
+    .entry-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .entry-date {
+      font-size: 18px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .entry-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .entry-badge {
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-success {
+      background: rgba(76, 175, 80, 0.2);
+      color: #81c784;
+      border: 1px solid rgba(76, 175, 80, 0.3);
+    }
+
+    .badge-partial {
+      background: rgba(255, 193, 7, 0.2);
+      color: #ffd54f;
+      border: 1px solid rgba(255, 193, 7, 0.3);
+    }
+
+    .badge-incomplete {
+      background: rgba(255, 152, 0, 0.2);
+      color: #ffb74d;
+      border: 1px solid rgba(255, 152, 0, 0.3);
+    }
+
+    .gratitude-section {
       margin-top: 12px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #10b981 0%, #059669 100%);
-      border-radius: 20px;
-      transition: width 0.5s ease;
+    .gratitude-label {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .spinner {
-      border: 3px solid rgba(16, 185, 129, 0.3);
-      border-top-color: #10b981;
+    .gratitude-text {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.8);
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    .btn-delete {
+      background: rgba(244, 67, 54, 0.15);
+      border: 1px solid rgba(244, 67, 54, 0.3);
+      color: #ef5350;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-delete:hover:not(:disabled) {
+      background: rgba(244, 67, 54, 0.25);
+      border-color: rgba(244, 67, 54, 0.4);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 48px 24px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .empty-icon {
+      font-size: 64px;
+      margin-bottom: 16px;
+    }
+
+    .empty-text {
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .loading-spinner {
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      border-top: 3px solid rgba(255, 255, 255, 0.8);
       border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto;
+      width: 20px;
+      height: 20px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      margin-left: 8px;
     }
 
     @keyframes spin {
-      to { transform: rotate(360deg); }
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
-    .loading {
-      text-align: center;
-      padding: 60px 20px;
-    }
-
-    .loading p {
-      margin-top: 20px;
-      color: rgba(255, 255, 255, 0.6);
-      font-size: 16px;
-    }
-
-    .toast {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      padding: 16px 24px;
+    .limit-warning {
+      background: rgba(255, 152, 0, 0.15);
+      border: 1px solid rgba(255, 152, 0, 0.3);
+      color: #ffb74d;
+      padding: 16px;
       border-radius: 12px;
-      font-weight: 600;
-      font-size: 15px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      z-index: 1000;
-      animation: slideIn 0.3s ease;
+      margin-bottom: 24px;
+      font-size: 14px;
+      display: none;
     }
 
-    @keyframes slideIn {
-      from {
-        transform: translateX(400px);
-        opacity: 0;
+    .stats-summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.7) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 768px) {
+      .app-wrapper {
+        padding: 24px 16px;
       }
-      to {
-        transform: translateX(0);
-        opacity: 1;
+
+      .main-title {
+        font-size: 32px;
       }
-    }
 
-    .workout-days {
-      display: flex;
-      gap: 8px;
-      margin-top: 16px;
-      flex-wrap: wrap;
-    }
-
-    .day-badge {
-      padding: 8px 16px;
-      background: #0f1421;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.7);
-    }
-
-    .day-badge.active {
-      background: #10b981;
-      color: #ffffff;
-    }
-
-    @media (max-width: 640px) {
-      .header h1 {
-        font-size: 28px;
-      }
-      
-      .stats-grid {
+      .goals-grid {
         grid-template-columns: 1fr;
       }
 
-      .stat-card .value {
-        font-size: 28px;
+      .add-entry-form {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -326,355 +433,216 @@
   <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
  </head>
  <body>
-  <div class="container"><!-- Loading Screen -->
-   <div id="loading-screen" class="loading">
-    <div class="spinner"></div>
-    <p>Loading your fitness journey...</p>
-   </div><!-- Main Content -->
-   <div id="main-content" style="display: none;"><!-- Header -->
-    <header class="header">
-     <h1 id="app-title">Weight Loss Journey</h1>
-     <div id="goal-text" class="goal">
-      🎯 Goal: 100kg → 90kg in 2 months
+  <main class="app-wrapper">
+   <header class="header">
+    <h1 class="main-title" id="mainTitle">Elite Performance 2026</h1>
+    <p class="subtitle" id="subtitleText">Complete Life Optimization System</p>
+   </header>
+   <div class="stats-summary" id="weeklyStats">
+    <div class="stat-item">
+     <div class="stat-value" id="statStreak">
+      0
      </div>
-     <div id="current-date" class="date"></div>
-     <div class="workout-days"><span class="day-badge" id="day-mon">MON</span> <span class="day-badge" id="day-tue">TUE</span> <span class="day-badge" id="day-wed">WED</span> <span class="day-badge" id="day-thu">THU</span> <span class="day-badge" id="day-fri">FRI</span> <span class="day-badge">SAT</span> <span class="day-badge">SUN</span>
+     <div class="stat-label">
+      Day Streak
      </div>
-    </header><!-- Stats Cards -->
-    <div class="stats-grid">
-     <div class="stat-card">
-      <div class="label">
-       Current Weight
-      </div>
-      <div class="value" id="stat-weight">
-       --
-      </div>
-      <div class="progress-bar">
-       <div class="progress-fill" id="weight-progress" style="width: 0%"></div>
-      </div>
+    </div>
+    <div class="stat-item">
+     <div class="stat-value" id="statScore">
+      0%
      </div>
-     <div class="stat-card">
-      <div class="label">
-       Today's Calories
-      </div>
-      <div class="value" id="stat-calories" style="color: #3b82f6;">
-       --
-      </div>
+     <div class="stat-label">
+      Weekly Score
      </div>
-     <div class="stat-card">
-      <div class="label">
-       Workout Duration
-      </div>
-      <div class="value" id="stat-duration" style="color: #f59e0b;">
-       --
-      </div>
+    </div>
+    <div class="stat-item">
+     <div class="stat-value" id="statTotal">
+      0
      </div>
-    </div><!-- Today's Weight -->
-    <section class="section">
-     <h2>📊 Daily Check-in</h2>
-     <div class="input-group"><label for="input-weight">Current Weight (kg)</label> <input type="number" id="input-weight" placeholder="e.g., 98.5" step="0.1" min="50" max="150">
+     <div class="stat-label">
+      Total Days
      </div>
-    </section><!-- Workout Section -->
-    <section class="section">
-     <h2>💪 Workout (Mon-Fri: 1.5h minimum)</h2>
-     <div class="checkbox-group"><input type="checkbox" id="input-workout-completed"> <label for="input-workout-completed">✅ Workout completed today</label>
-     </div>
-     <div class="input-group"><label for="input-workout-duration">Workout Duration (minutes)</label> <input type="number" id="input-workout-duration" placeholder="e.g., 90" min="0" max="300">
-     </div>
-    </section><!-- Nutrition Section -->
-    <section class="section">
-     <h2>🍽️ Nutrition</h2>
-     <div class="input-group"><label for="input-calories">Calories Consumed</label> <input type="number" id="input-calories" placeholder="e.g., 1800" min="0" max="5000">
-     </div>
-     <div class="input-group"><label for="input-protein">Protein (grams)</label> <input type="number" id="input-protein" placeholder="e.g., 150" min="0" max="500">
-     </div>
-     <div class="input-group"><label for="input-water">Water Intake (liters)</label> <input type="number" id="input-water" placeholder="e.g., 3.5" step="0.1" min="0" max="10">
-     </div>
-    </section><!-- Activity & Recovery -->
-    <section class="section">
-     <h2>🏃 Activity &amp; Recovery</h2>
-     <div class="input-group"><label for="input-steps">Daily Steps</label> <input type="number" id="input-steps" placeholder="e.g., 10000" min="0" max="50000">
-     </div>
-     <div class="input-group"><label for="input-sleep">Sleep Duration (hours)</label> <input type="number" id="input-sleep" placeholder="e.g., 7.5" step="0.5" min="0" max="24">
-     </div>
-    </section><!-- Notes -->
-    <section class="section">
-     <h2>📝 Daily Notes</h2>
-     <div class="input-group"><label for="input-notes">How do you feel? Any observations?</label> <textarea id="input-notes" placeholder="Energy levels, motivation, challenges..."></textarea>
-     </div>
-    </section><!-- Save Button --> <button id="btn-save" class="btn btn-primary">💾 Save Today's Progress</button> <!-- Export Button -->
-    <div style="margin-top: 16px;"><button id="btn-export" class="btn btn-secondary">📊 Export Progress to CSV</button>
     </div>
    </div>
-  </div>
+   <div class="goals-grid">
+    <div class="goal-card">
+     <div class="goal-icon">
+      💪
+     </div>
+     <h2 class="goal-title">Fitness</h2>
+     <p class="goal-description" id="workoutGoal">Train 5x/week</p>
+     <div class="progress-info"><span class="progress-label">This Week</span> <span class="progress-value" id="workoutProgress">0/5</span>
+     </div>
+    </div>
+    <div class="goal-card">
+     <div class="goal-icon">
+      📚
+     </div>
+     <h2 class="goal-title">Learning</h2>
+     <p class="goal-description" id="readingGoal">Read 30 pages/day</p>
+     <div class="progress-info"><span class="progress-label">Today</span> <span class="progress-value" id="readingProgress">0/30</span>
+     </div>
+    </div>
+    <div class="goal-card">
+     <div class="goal-icon">
+      💧
+     </div>
+     <h2 class="goal-title">Hydration</h2>
+     <p class="goal-description" id="hydrationGoal">8 glasses/day</p>
+     <div class="progress-info"><span class="progress-label">Today</span> <span class="progress-value" id="hydrationProgress">0/8</span>
+     </div>
+    </div>
+    <div class="goal-card">
+     <div class="goal-icon">
+      😴
+     </div>
+     <h2 class="goal-title">Sleep</h2>
+     <p class="goal-description" id="sleepGoal">8 hours/night</p>
+     <div class="progress-info"><span class="progress-label">Last Night</span> <span class="progress-value" id="sleepProgress">0/8</span>
+     </div>
+    </div>
+    <div class="goal-card">
+     <div class="goal-icon">
+      🧘
+     </div>
+     <h2 class="goal-title">Mindfulness</h2>
+     <p class="goal-description" id="meditationGoal">20 min/day</p>
+     <div class="progress-info"><span class="progress-label">Today</span> <span class="progress-value" id="meditationProgress">0/20</span>
+     </div>
+    </div>
+    <div class="goal-card">
+     <div class="goal-icon">
+      🥗
+     </div>
+     <h2 class="goal-title">Nutrition</h2>
+     <p class="goal-description" id="nutritionGoal">3 healthy meals/day</p>
+     <div class="progress-info"><span class="progress-label">Today</span> <span class="progress-value" id="nutritionProgress">0/3</span>
+     </div>
+    </div>
+    <div class="goal-card">
+     <div class="goal-icon">
+      🎯
+     </div>
+     <h2 class="goal-title">Deep Work</h2>
+     <p class="goal-description" id="deepWorkGoal">4 hours/day</p>
+     <div class="progress-info"><span class="progress-label">Today</span> <span class="progress-value" id="deepWorkProgress">0/4</span>
+     </div>
+    </div>
+   </div>
+   <div class="tracker-card">
+    <div id="limitWarning" class="limit-warning">
+     ⚠️ Maximum limit of 999 entries reached. Please delete some entries to add new ones.
+    </div>
+    <div class="tracker-header">
+     <h2 class="tracker-title">Daily Log</h2>
+     <form class="add-entry-form" id="addEntryForm">
+      <div class="form-group"><label class="form-label" for="entryDate">Date</label> <input type="date" id="entryDate" class="form-input" required>
+      </div>
+      <div class="form-group"><label class="form-label" for="pagesRead">Pages Read</label> <input type="number" id="pagesRead" class="form-input" placeholder="0" min="0" required>
+      </div>
+      <div class="form-group"><label class="form-label" for="waterGlasses">Water (glasses)</label> <input type="number" id="waterGlasses" class="form-input" placeholder="0" min="0" required>
+      </div>
+      <div class="form-group"><label class="form-label" for="sleepHours">Sleep (hours)</label> <input type="number" id="sleepHours" class="form-input" placeholder="0" min="0" max="24" step="0.5" required>
+      </div>
+      <div class="form-group"><label class="form-label" for="meditationMinutes">Meditation (min)</label> <input type="number" id="meditationMinutes" class="form-input" placeholder="0" min="0" required>
+      </div>
+      <div class="form-group"><label class="form-label" for="healthyMeals">Healthy Meals</label> <input type="number" id="healthyMeals" class="form-input" placeholder="0" min="0" max="10" required>
+      </div>
+      <div class="form-group"><label class="form-label" for="deepWorkHours">Deep Work (hours)</label> <input type="number" id="deepWorkHours" class="form-input" placeholder="0" min="0" max="24" step="0.5" required>
+      </div>
+      <div class="form-group">
+       <div class="checkbox-group"><input type="checkbox" id="workoutCompleted" class="checkbox-input"> <label class="form-label" for="workoutCompleted">Workout Completed</label>
+       </div>
+      </div>
+      <div class="form-group full-width"><label class="form-label" for="gratitudeNote">Gratitude Note (optional)</label> <textarea id="gratitudeNote" class="form-textarea" placeholder="What are you grateful for today?"></textarea>
+      </div><button type="submit" class="btn btn-submit" id="addBtn">Log Today's Progress</button>
+     </form>
+    </div>
+    <div id="entriesList" class="entries-list">
+     <div class="empty-state">
+      <div class="empty-icon">
+       🚀
+      </div>
+      <p class="empty-text">Start your journey to peak performance!</p>
+     </div>
+    </div>
+   </div>
+  </main>
   <script>
     const defaultConfig = {
-      app_title: "Weight Loss Journey",
-      goal_text: "🎯 Goal: 100kg → 90kg in 2 months",
-      background_color: "#0a0e1a",
-      surface_color: "#1a1f35",
+      background_color: "#0a0a0a",
+      surface_color: "rgba(255, 255, 255, 0.05)",
       text_color: "#ffffff",
-      primary_action_color: "#10b981",
-      secondary_action_color: "#3b82f6",
-      font_family: "system-ui",
-      font_size: 16
+      primary_action_color: "rgba(255, 255, 255, 0.15)",
+      secondary_action_color: "rgba(244, 67, 54, 0.15)",
+      font_family: "Inter",
+      font_size: 16,
+      main_title: "Elite Performance 2026",
+      subtitle_text: "Complete Life Optimization System",
+      workout_goal: "Train 5x/week",
+      reading_goal: "Read 30 pages/day",
+      hydration_goal: "8 glasses/day",
+      sleep_goal: "8 hours/night",
+      meditation_goal: "20 min/day",
+      nutrition_goal: "3 healthy meals/day",
+      deep_work_goal: "4 hours/day"
     };
 
-    const STARTING_WEIGHT = 100;
-    const GOAL_WEIGHT = 90;
-
-    let currentRecord = null;
-    let allRecords = [];
-    let isSaving = false;
-
-    function getTodayDate() {
-      return new Date().toISOString().split('T')[0];
-    }
-
-    function formatDate(dateStr) {
-      const date = new Date(dateStr + 'T00:00:00');
-      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      return date.toLocaleDateString('en-US', options);
-    }
-
-    function getTodayDayOfWeek() {
-      return new Date().getDay(); // 0 = Sunday, 1 = Monday, etc.
-    }
-
-    function highlightWorkoutDays() {
-      const today = getTodayDayOfWeek();
-      const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
-      
-      // Highlight Monday (1) to Friday (5)
-      for (let i = 1; i <= 5; i++) {
-        const dayEl = document.getElementById(`day-${days[i]}`);
-        if (dayEl && i === today) {
-          dayEl.classList.add('active');
-        }
-      }
-    }
-
-    function showToast(message, isError = false) {
-      const toast = document.createElement('div');
-      toast.className = 'toast';
-      toast.textContent = message;
-      toast.style.backgroundColor = isError ? '#ef4444' : '#10b981';
-      
-      document.body.appendChild(toast);
-      
-      setTimeout(() => {
-        toast.remove();
-      }, 3000);
-    }
-
-    function updateStats() {
-      if (!currentRecord) {
-        document.getElementById('stat-weight').textContent = '--';
-        document.getElementById('stat-calories').textContent = '--';
-        document.getElementById('stat-duration').textContent = '--';
-        document.getElementById('weight-progress').style.width = '0%';
-        return;
-      }
-
-      // Update weight
-      if (currentRecord.current_weight) {
-        document.getElementById('stat-weight').textContent = `${currentRecord.current_weight} kg`;
-        
-        // Calculate progress
-        const totalLoss = STARTING_WEIGHT - GOAL_WEIGHT;
-        const currentLoss = STARTING_WEIGHT - currentRecord.current_weight;
-        const progressPercent = Math.min(100, Math.max(0, (currentLoss / totalLoss) * 100));
-        document.getElementById('weight-progress').style.width = `${progressPercent}%`;
-      }
-
-      // Update calories
-      if (currentRecord.calories_consumed) {
-        document.getElementById('stat-calories').textContent = `${currentRecord.calories_consumed} kcal`;
-      } else {
-        document.getElementById('stat-calories').textContent = '--';
-      }
-
-      // Update workout duration
-      if (currentRecord.workout_duration) {
-        const hours = Math.floor(currentRecord.workout_duration / 60);
-        const mins = currentRecord.workout_duration % 60;
-        if (hours > 0) {
-          document.getElementById('stat-duration').textContent = `${hours}h ${mins}m`;
-        } else {
-          document.getElementById('stat-duration').textContent = `${mins}m`;
-        }
-      } else {
-        document.getElementById('stat-duration').textContent = '--';
-      }
-    }
-
-    function populateForm() {
-      if (!currentRecord) {
-        document.getElementById('input-weight').value = '';
-        document.getElementById('input-workout-completed').checked = false;
-        document.getElementById('input-workout-duration').value = '';
-        document.getElementById('input-calories').value = '';
-        document.getElementById('input-protein').value = '';
-        document.getElementById('input-water').value = '';
-        document.getElementById('input-steps').value = '';
-        document.getElementById('input-sleep').value = '';
-        document.getElementById('input-notes').value = '';
-        return;
-      }
-
-      document.getElementById('input-weight').value = currentRecord.current_weight || '';
-      document.getElementById('input-workout-completed').checked = currentRecord.workout_completed || false;
-      document.getElementById('input-workout-duration').value = currentRecord.workout_duration || '';
-      document.getElementById('input-calories').value = currentRecord.calories_consumed || '';
-      document.getElementById('input-protein').value = currentRecord.protein_grams || '';
-      document.getElementById('input-water').value = currentRecord.water_liters || '';
-      document.getElementById('input-steps').value = currentRecord.steps || '';
-      document.getElementById('input-sleep').value = currentRecord.sleep_hours || '';
-      document.getElementById('input-notes').value = currentRecord.notes || '';
-    }
-
-    async function saveProgress() {
-      if (isSaving) return;
-
-      isSaving = true;
-      const btn = document.getElementById('btn-save');
-      btn.disabled = true;
-      btn.textContent = '💾 Saving...';
-
-      const data = {
-        date: getTodayDate(),
-        current_weight: parseFloat(document.getElementById('input-weight').value) || null,
-        workout_completed: document.getElementById('input-workout-completed').checked,
-        workout_duration: parseInt(document.getElementById('input-workout-duration').value) || null,
-        calories_consumed: parseInt(document.getElementById('input-calories').value) || null,
-        protein_grams: parseInt(document.getElementById('input-protein').value) || null,
-        water_liters: parseFloat(document.getElementById('input-water').value) || null,
-        steps: parseInt(document.getElementById('input-steps').value) || null,
-        sleep_hours: parseFloat(document.getElementById('input-sleep').value) || null,
-        notes: document.getElementById('input-notes').value || ''
-      };
-
-      let result;
-      if (!currentRecord) {
-        result = await window.dataSdk.create(data);
-      } else {
-        result = await window.dataSdk.update({ ...currentRecord, ...data });
-      }
-
-      if (result.isOk) {
-        showToast('Progress saved successfully! 💪');
-      } else {
-        showToast('Failed to save. Please try again.', true);
-      }
-
-      btn.disabled = false;
-      btn.textContent = '💾 Save Today\'s Progress';
-      isSaving = false;
-    }
-
-    async function exportToCSV() {
-      const btn = document.getElementById('btn-export');
-      btn.disabled = true;
-      btn.textContent = '📊 Exporting...';
-
-      setTimeout(() => {
-        if (allRecords.length === 0) {
-          showToast('No data to export yet!', true);
-          btn.disabled = false;
-          btn.textContent = '📊 Export Progress to CSV';
-          return;
-        }
-
-        const headers = ['Date', 'Weight (kg)', 'Workout Done', 'Duration (min)', 'Calories', 'Protein (g)', 'Water (L)', 'Steps', 'Sleep (h)', 'Notes'];
-        const rows = [headers.join(',')];
-
-        allRecords.forEach(record => {
-          const row = [
-            record.date,
-            record.current_weight || '',
-            record.workout_completed ? 'Yes' : 'No',
-            record.workout_duration || '',
-            record.calories_consumed || '',
-            record.protein_grams || '',
-            record.water_liters || '',
-            record.steps || '',
-            record.sleep_hours || '',
-            `"${(record.notes || '').replace(/"/g, '""')}"`
-          ];
-          rows.push(row.join(','));
-        });
-
-        const csvContent = rows.join('\n');
-        const blob = new Blob([csvContent], { type: 'text/csv' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `fitness-journey-${getTodayDate()}.csv`;
-        a.click();
-        window.URL.revokeObjectURL(url);
-
-        showToast('CSV exported successfully! 📊');
-        btn.disabled = false;
-        btn.textContent = '📊 Export Progress to CSV';
-      }, 500);
-    }
+    let allEntries = [];
+    let isLoading = false;
 
     const dataHandler = {
       onDataChanged(data) {
-        allRecords = data;
-        const today = getTodayDate();
-        const todayRecord = data.find(r => r.date === today);
-
-        currentRecord = todayRecord || null;
-        
-        populateForm();
-        updateStats();
-
-        document.getElementById('loading-screen').style.display = 'none';
-        document.getElementById('main-content').style.display = 'block';
+        allEntries = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+        renderEntries();
+        updateAllProgress();
       }
     };
 
     async function onConfigChange(config) {
-      const font = config.font_family || defaultConfig.font_family;
-      const fontStack = `${font}, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif`;
+      const customFont = config.font_family || defaultConfig.font_family;
+      const baseFontStack = '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      const fontFamily = `${customFont}, ${baseFontStack}`;
       const baseSize = config.font_size || defaultConfig.font_size;
 
-      document.body.style.background = config.background_color || defaultConfig.background_color;
-      document.body.style.fontFamily = fontStack;
+      document.body.style.fontFamily = fontFamily;
+      document.body.style.fontSize = `${baseSize}px`;
 
-      const sections = document.querySelectorAll('.section, .header');
-      sections.forEach(section => {
-        section.style.background = config.surface_color || defaultConfig.surface_color;
+      document.getElementById('mainTitle').textContent = config.main_title || defaultConfig.main_title;
+      document.getElementById('mainTitle').style.fontSize = `${baseSize * 3}px`;
+
+      document.getElementById('subtitleText').textContent = config.subtitle_text || defaultConfig.subtitle_text;
+      document.querySelector('.subtitle').style.fontSize = `${baseSize * 1.125}px`;
+
+      document.getElementById('workoutGoal').textContent = config.workout_goal || defaultConfig.workout_goal;
+      document.getElementById('readingGoal').textContent = config.reading_goal || defaultConfig.reading_goal;
+      document.getElementById('hydrationGoal').textContent = config.hydration_goal || defaultConfig.hydration_goal;
+      document.getElementById('sleepGoal').textContent = config.sleep_goal || defaultConfig.sleep_goal;
+      document.getElementById('meditationGoal').textContent = config.meditation_goal || defaultConfig.meditation_goal;
+      document.getElementById('nutritionGoal').textContent = config.nutrition_goal || defaultConfig.nutrition_goal;
+      document.getElementById('deepWorkGoal').textContent = config.deep_work_goal || defaultConfig.deep_work_goal;
+
+      const goalDescriptions = document.querySelectorAll('.goal-description');
+      goalDescriptions.forEach(el => {
+        el.style.fontSize = `${baseSize * 0.875}px`;
       });
 
-      const statCards = document.querySelectorAll('.stat-card');
-      statCards.forEach(card => {
-        card.style.background = config.surface_color || defaultConfig.surface_color;
+      const goalTitles = document.querySelectorAll('.goal-title');
+      goalTitles.forEach(el => {
+        el.style.fontSize = `${baseSize * 1.25}px`;
       });
 
-      document.getElementById('app-title').textContent = config.app_title || defaultConfig.app_title;
-      document.getElementById('app-title').style.fontSize = `${baseSize * 2.25}px`;
-
-      document.getElementById('goal-text').textContent = config.goal_text || defaultConfig.goal_text;
-      document.getElementById('goal-text').style.fontSize = `${baseSize * 1.125}px`;
+      document.querySelector('.tracker-title').style.fontSize = `${baseSize * 1.75}px`;
     }
 
-    async function init() {
-      document.getElementById('current-date').textContent = formatDate(getTodayDate());
-      highlightWorkoutDays();
+    async function initializeApp() {
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('entryDate').value = today;
 
       const initResult = await window.dataSdk.init(dataHandler);
-      
       if (!initResult.isOk) {
-        showToast('Failed to initialize. Please refresh.', true);
-        document.getElementById('loading-screen').style.display = 'none';
-        document.getElementById('main-content').style.display = 'block';
-        return;
+        console.error("Failed to initialize data SDK");
       }
-
-      document.getElementById('btn-save').addEventListener('click', saveProgress);
-      document.getElementById('btn-export').addEventListener('click', exportToCSV);
 
       if (window.elementSdk) {
         window.elementSdk.init({
@@ -686,35 +654,35 @@
                 get: () => config.background_color || defaultConfig.background_color,
                 set: (value) => {
                   config.background_color = value;
-                  window.elementSdk.setConfig({ background_color: value });
+                  if (window.elementSdk) window.elementSdk.setConfig({ background_color: value });
                 }
               },
               {
                 get: () => config.surface_color || defaultConfig.surface_color,
                 set: (value) => {
                   config.surface_color = value;
-                  window.elementSdk.setConfig({ surface_color: value });
+                  if (window.elementSdk) window.elementSdk.setConfig({ surface_color: value });
                 }
               },
               {
                 get: () => config.text_color || defaultConfig.text_color,
                 set: (value) => {
                   config.text_color = value;
-                  window.elementSdk.setConfig({ text_color: value });
+                  if (window.elementSdk) window.elementSdk.setConfig({ text_color: value });
                 }
               },
               {
                 get: () => config.primary_action_color || defaultConfig.primary_action_color,
                 set: (value) => {
                   config.primary_action_color = value;
-                  window.elementSdk.setConfig({ primary_action_color: value });
+                  if (window.elementSdk) window.elementSdk.setConfig({ primary_action_color: value });
                 }
               },
               {
                 get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
                 set: (value) => {
                   config.secondary_action_color = value;
-                  window.elementSdk.setConfig({ secondary_action_color: value });
+                  if (window.elementSdk) window.elementSdk.setConfig({ secondary_action_color: value });
                 }
               }
             ],
@@ -723,26 +691,276 @@
               get: () => config.font_family || defaultConfig.font_family,
               set: (value) => {
                 config.font_family = value;
-                window.elementSdk.setConfig({ font_family: value });
+                if (window.elementSdk) window.elementSdk.setConfig({ font_family: value });
               }
             },
             fontSizeable: {
               get: () => config.font_size || defaultConfig.font_size,
               set: (value) => {
                 config.font_size = value;
-                window.elementSdk.setConfig({ font_size: value });
+                if (window.elementSdk) window.elementSdk.setConfig({ font_size: value });
               }
             }
           }),
           mapToEditPanelValues: (config) => new Map([
-            ["app_title", config.app_title || defaultConfig.app_title],
-            ["goal_text", config.goal_text || defaultConfig.goal_text]
+            ["main_title", config.main_title || defaultConfig.main_title],
+            ["subtitle_text", config.subtitle_text || defaultConfig.subtitle_text],
+            ["workout_goal", config.workout_goal || defaultConfig.workout_goal],
+            ["reading_goal", config.reading_goal || defaultConfig.reading_goal],
+            ["hydration_goal", config.hydration_goal || defaultConfig.hydration_goal],
+            ["sleep_goal", config.sleep_goal || defaultConfig.sleep_goal],
+            ["meditation_goal", config.meditation_goal || defaultConfig.meditation_goal],
+            ["nutrition_goal", config.nutrition_goal || defaultConfig.nutrition_goal],
+            ["deep_work_goal", config.deep_work_goal || defaultConfig.deep_work_goal]
           ])
         });
       }
     }
 
-    init();
+    document.getElementById('addEntryForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (allEntries.length >= 999) {
+        document.getElementById('limitWarning').style.display = 'block';
+        return;
+      }
+
+      if (isLoading) return;
+
+      const date = document.getElementById('entryDate').value;
+      const pagesRead = parseInt(document.getElementById('pagesRead').value);
+      const waterGlasses = parseInt(document.getElementById('waterGlasses').value);
+      const sleepHours = parseFloat(document.getElementById('sleepHours').value);
+      const meditationMinutes = parseInt(document.getElementById('meditationMinutes').value);
+      const healthyMeals = parseInt(document.getElementById('healthyMeals').value);
+      const deepWorkHours = parseFloat(document.getElementById('deepWorkHours').value);
+      const workoutCompleted = document.getElementById('workoutCompleted').checked;
+      const gratitudeNote = document.getElementById('gratitudeNote').value.trim();
+
+      const addBtn = document.getElementById('addBtn');
+      const originalText = addBtn.textContent;
+      addBtn.disabled = true;
+      addBtn.innerHTML = 'Logging<span class="loading-spinner"></span>';
+      isLoading = true;
+
+      const newEntry = {
+        id: Date.now().toString(),
+        date: date,
+        workout_completed: workoutCompleted,
+        pages_read: pagesRead,
+        water_glasses: waterGlasses,
+        sleep_hours: sleepHours,
+        meditation_minutes: meditationMinutes,
+        healthy_meals: healthyMeals,
+        deep_work_hours: deepWorkHours,
+        gratitude_note: gratitudeNote,
+        created_at: new Date().toISOString()
+      };
+
+      const result = await window.dataSdk.create(newEntry);
+
+      isLoading = false;
+      addBtn.disabled = false;
+      addBtn.textContent = originalText;
+
+      if (result.isOk) {
+        document.getElementById('pagesRead').value = '';
+        document.getElementById('waterGlasses').value = '';
+        document.getElementById('sleepHours').value = '';
+        document.getElementById('meditationMinutes').value = '';
+        document.getElementById('healthyMeals').value = '';
+        document.getElementById('deepWorkHours').value = '';
+        document.getElementById('workoutCompleted').checked = false;
+        document.getElementById('gratitudeNote').value = '';
+        document.getElementById('entryDate').value = new Date().toISOString().split('T')[0];
+      } else {
+        showNotification('❌ Failed to add entry. Please try again.', 'error');
+      }
+    });
+
+    async function deleteEntry(entry, button) {
+      if (isLoading) return;
+
+      const originalText = button.textContent;
+      button.disabled = true;
+      button.innerHTML = 'Deleting<span class="loading-spinner"></span>';
+      isLoading = true;
+
+      const result = await window.dataSdk.delete(entry);
+
+      isLoading = false;
+      button.disabled = false;
+      button.textContent = originalText;
+
+      if (!result.isOk) {
+        showNotification('❌ Failed to delete entry. Please try again.', 'error');
+      }
+    }
+
+    function showNotification(message, type) {
+      const notification = document.createElement('div');
+      notification.className = 'limit-warning';
+      notification.style.display = 'block';
+      notification.textContent = message;
+      document.querySelector('.tracker-card').insertBefore(notification, document.querySelector('.tracker-header'));
+      setTimeout(() => notification.remove(), 3000);
+    }
+
+    function renderEntries() {
+      const container = document.getElementById('entriesList');
+      
+      if (allEntries.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">🚀</div>
+            <p class="empty-text">Start your journey to peak performance!</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = '';
+
+      allEntries.forEach(entry => {
+        const entryDiv = document.createElement('div');
+        entryDiv.className = 'entry-item';
+        
+        const formattedDate = new Date(entry.date).toLocaleDateString('en-US', {
+          weekday: 'short',
+          month: 'short',
+          day: 'numeric',
+          year: 'numeric'
+        });
+
+        const workoutBadge = entry.workout_completed 
+          ? '<span class="entry-badge badge-success">✓ Workout</span>'
+          : '<span class="entry-badge badge-incomplete">✗ Workout</span>';
+
+        const readingBadge = entry.pages_read >= 30
+          ? `<span class="entry-badge badge-success">📚 ${entry.pages_read} pages</span>`
+          : `<span class="entry-badge badge-partial">📚 ${entry.pages_read} pages</span>`;
+
+        const waterBadge = entry.water_glasses >= 8
+          ? `<span class="entry-badge badge-success">💧 ${entry.water_glasses} glasses</span>`
+          : `<span class="entry-badge badge-partial">💧 ${entry.water_glasses} glasses</span>`;
+
+        const sleepBadge = entry.sleep_hours >= 7
+          ? `<span class="entry-badge badge-success">😴 ${entry.sleep_hours}h</span>`
+          : `<span class="entry-badge badge-partial">😴 ${entry.sleep_hours}h</span>`;
+
+        const meditationBadge = entry.meditation_minutes >= 20
+          ? `<span class="entry-badge badge-success">🧘 ${entry.meditation_minutes}min</span>`
+          : `<span class="entry-badge badge-partial">🧘 ${entry.meditation_minutes}min</span>`;
+
+        const mealsBadge = entry.healthy_meals >= 3
+          ? `<span class="entry-badge badge-success">🥗 ${entry.healthy_meals} meals</span>`
+          : `<span class="entry-badge badge-partial">🥗 ${entry.healthy_meals} meals</span>`;
+
+        const workBadge = entry.deep_work_hours >= 4
+          ? `<span class="entry-badge badge-success">🎯 ${entry.deep_work_hours}h</span>`
+          : `<span class="entry-badge badge-partial">🎯 ${entry.deep_work_hours}h</span>`;
+
+        const gratitudeSection = entry.gratitude_note ? `
+          <div class="gratitude-section">
+            <div class="gratitude-label">🙏 Gratitude</div>
+            <div class="gratitude-text">${entry.gratitude_note}</div>
+          </div>
+        ` : '';
+
+        entryDiv.innerHTML = `
+          <div class="entry-header">
+            <span class="entry-date">${formattedDate}</span>
+            <button class="btn-delete" data-entry-id="${entry.id}">Delete</button>
+          </div>
+          <div class="entry-badges">
+            ${workoutBadge}
+            ${readingBadge}
+            ${waterBadge}
+            ${sleepBadge}
+            ${meditationBadge}
+            ${mealsBadge}
+            ${workBadge}
+          </div>
+          ${gratitudeSection}
+        `;
+
+        const deleteBtn = entryDiv.querySelector('.btn-delete');
+        deleteBtn.addEventListener('click', () => deleteEntry(entry, deleteBtn));
+
+        container.appendChild(entryDiv);
+      });
+
+      if (allEntries.length >= 999) {
+        document.getElementById('limitWarning').style.display = 'block';
+      } else {
+        document.getElementById('limitWarning').style.display = 'none';
+      }
+    }
+
+    function updateAllProgress() {
+      const today = new Date();
+      const startOfWeek = new Date(today);
+      startOfWeek.setDate(today.getDate() - today.getDay());
+      
+      const weekEntries = allEntries.filter(entry => {
+        const entryDate = new Date(entry.date);
+        return entryDate >= startOfWeek;
+      });
+
+      // Weekly workout count
+      const workoutsThisWeek = weekEntries.filter(e => e.workout_completed).length;
+      document.getElementById('workoutProgress').textContent = `${workoutsThisWeek}/5`;
+
+      // Today's progress
+      const todayStr = today.toISOString().split('T')[0];
+      const todayEntry = allEntries.find(e => e.date === todayStr);
+
+      document.getElementById('readingProgress').textContent = todayEntry ? `${todayEntry.pages_read}/30` : '0/30';
+      document.getElementById('hydrationProgress').textContent = todayEntry ? `${todayEntry.water_glasses}/8` : '0/8';
+      document.getElementById('sleepProgress').textContent = todayEntry ? `${todayEntry.sleep_hours}/8` : '0/8';
+      document.getElementById('meditationProgress').textContent = todayEntry ? `${todayEntry.meditation_minutes}/20` : '0/20';
+      document.getElementById('nutritionProgress').textContent = todayEntry ? `${todayEntry.healthy_meals}/3` : '0/3';
+      document.getElementById('deepWorkProgress').textContent = todayEntry ? `${todayEntry.deep_work_hours}/4` : '0/4';
+
+      // Calculate streak
+      let streak = 0;
+      const sortedDates = allEntries.map(e => e.date).sort((a, b) => new Date(b) - new Date(a));
+      let checkDate = new Date(today);
+      
+      for (let i = 0; i < sortedDates.length; i++) {
+        const entryDate = sortedDates[i];
+        const checkStr = checkDate.toISOString().split('T')[0];
+        
+        if (entryDate === checkStr) {
+          streak++;
+          checkDate.setDate(checkDate.getDate() - 1);
+        } else {
+          break;
+        }
+      }
+
+      document.getElementById('statStreak').textContent = streak;
+      document.getElementById('statTotal').textContent = allEntries.length;
+
+      // Calculate weekly score
+      let totalScore = 0;
+      let maxScore = weekEntries.length * 7; // 7 habits per day
+      
+      weekEntries.forEach(entry => {
+        if (entry.workout_completed) totalScore++;
+        if (entry.pages_read >= 30) totalScore++;
+        if (entry.water_glasses >= 8) totalScore++;
+        if (entry.sleep_hours >= 7) totalScore++;
+        if (entry.meditation_minutes >= 20) totalScore++;
+        if (entry.healthy_meals >= 3) totalScore++;
+        if (entry.deep_work_hours >= 4) totalScore++;
+      });
+
+      const weeklyScore = maxScore > 0 ? Math.round((totalScore / maxScore) * 100) : 0;
+      document.getElementById('statScore').textContent = `${weeklyScore}%`;
+    }
+
+    initializeApp();
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a617de13529cfef',t:'MTc2NDQxMjg3Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a619294010e1bfe',t:'MTc2NDQxMzcyNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
